@@ -181,7 +181,7 @@ u_int32_t ORBIndex::removeImage(const unsigned i_imageId)
     removeTag((u_int64_t)i_imageId);
 
     pthread_rwlock_wrlock(&rwLock);
-    unordered_map<u_int64_t, unsigned>::iterator imgIt =
+    auto imgIt =
         nbWords.find(i_imageId);
 
     if (imgIt == nbWords.end())
@@ -246,7 +246,7 @@ u_int32_t ORBIndex::getImageWords(unsigned i_imageId, unordered_map<u_int32_t, l
                                        0.15 * i_nbTotalIndexedImages
                                        : i_nbTotalIndexedImages;
 
-    unordered_map<u_int64_t, unsigned>::iterator imgIt =
+    auto imgIt =
         nbWords.find(i_imageId);
 
     if (imgIt == nbWords.end())
@@ -634,8 +634,8 @@ u_int32_t ORBIndex::writeTags(string indexTagsPath)
 u_int32_t ORBIndex::getImageIds(vector<u_int32_t> &imageIds)
 {
     imageIds.reserve(nbWords.size());
-    for (unordered_map<u_int64_t, unsigned>::const_iterator it = nbWords.begin();
-         it != nbWords.end(); ++it)
+    for (auto it = nbWords.cbegin();
+         it != nbWords.cend(); ++it)
         imageIds.push_back(it->first);
 
     return INDEX_IMAGE_IDS;

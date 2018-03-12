@@ -74,7 +74,7 @@ private:
     u_int64_t totalNbRecords;
     bool buildForwardIndex;
 
-    unordered_map<u_int64_t, unsigned> nbWords;
+    map<u_int64_t, unsigned> nbWords;
     unordered_map<u_int64_t, vector<unsigned> > forwardIndex;
     unordered_map<u_int32_t, string> tags;
     vector<Hit> indexHits[NB_VISUAL_WORDS];
