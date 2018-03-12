@@ -299,9 +299,15 @@ void RequestHandler::handleRequest(ConnectionInfo &conInfo)
 
         // Return the image ids
         Json::Value imageIdsVal(Json::arrayValue);
-        for (unsigned i = 0; i < imageIds.size(); ++i)
+        Json::Value imageTagsVal(Json::arrayValue);
+        for (unsigned i = 0; i < imageIds.size(); ++i) {
             imageIdsVal.append(imageIds[i]);
+            string cur_tag = "";
+            index->getTag(imageIds[i], cur_tag);
+            imageTagsVal.append(cur_tag);
+        }
         ret["image_ids"] = imageIdsVal;
+        ret["image_tags"] = imageTagsVal;
     }
     else if (testURIWithPattern(parsedURI, p_root)
              && conInfo.connectionType == POST)
